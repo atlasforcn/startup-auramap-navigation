@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AuraMap｜視障者的科技導盲犬 Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#navigator">跳到導航控制</a>
+
+    <main class="shell">
+      <header class="topbar" aria-label="AuraMap demo header">
+        <section class="identity">
+          <p class="eyebrow">大專校院創新創業實戰模擬學習平臺｜教育部｜114 年第一梯次成功案例</p>
+          <h1>AuraMap｜視障者的科技導盲犬</h1>
+          <p class="lede">室內定位、AI 視覺辨識、語音與震動回饋，協助視障者在複雜室內場域中取得清楚方向與即時障礙提醒。</p>
+        </section>
+
+        <section class="source-panel" aria-label="官方來源">
+          <span>國立中央大學｜AuraMap｜資通訊領域 ICT</span>
+          <a href="https://ssp.moe.gov.tw/cases/1486" target="_blank" rel="noreferrer">官方案例頁</a>
+        </section>
+      </header>
+
+      <section class="status-rail" aria-label="目前導航狀態">
+        <article>
+          <span>目的地</span>
+          <strong id="destinationStatus">A 棟電梯</strong>
+        </article>
+        <article>
+          <span>目前節點</span>
+          <strong id="currentNodeStatus">入口信標</strong>
+        </article>
+        <article>
+          <span>障礙風險</span>
+          <strong id="riskStatus">0 項</strong>
+        </article>
+        <article>
+          <span>信標健康度</span>
+          <strong id="beaconHealth">4/4</strong>
+        </article>
+      </section>
+
+      <section class="app-grid" id="navigator">
+        <aside class="panel control-panel" aria-label="導航設定與語音指令">
+          <div class="panel-heading">
+            <p class="kicker">Navigator</p>
+            <h2>目的地與提示</h2>
+          </div>
+
+          <label class="field" for="destinationSelect">
+            <span>目的地設定</span>
+            <select id="destinationSelect">
+              <option value="elevator">A 棟電梯</option>
+              <option value="desk">一樓服務台</option>
+              <option value="exit">無障礙出口 B</option>
+              <option value="meeting">二樓會議室</option>
+            </select>
+          </label>
+
+          <div class="action-stack" aria-label="導航控制">
+            <button class="primary-action" id="startBtn" type="button">啟動導航</button>
+            <button id="nextBtn" type="button">抵達下一節點</button>
+            <button id="repeatBtn" type="button">重複目前提示</button>
+            <button id="resetBtn" type="button">重置 demo</button>
+          </div>
+
+          <div class="feedback-switches" aria-label="提示模式">
+            <label>
+              <input id="speechToggle" type="checkbox" checked />
+              <span>語音提示</span>
+            </label>
+            <label>
+              <input id="vibrationToggle" type="checkbox" checked />
+              <span>震動提示</span>
+            </label>
+          </div>
+
+          <section class="prompt-panel" aria-label="目前提示">
+            <p class="kicker">Live Prompt</p>
+            <p id="promptText">請設定目的地後啟動導航。</p>
+          </section>
+
+          <form class="voice-form" id="voiceForm">
+            <label class="field" for="voiceCommand">
+              <span>模擬語音指令</span>
+              <input id="voiceCommand" type="text" autocomplete="off" placeholder="例：帶我去電梯、下一步、重複提示" />
+            </label>
+            <button type="submit">送出指令</button>
+          </form>
+
+          <div class="command-chips" aria-label="快速語音指令">
+            <button type="button" data-command="帶我去服務台">服務台</button>
+            <button type="button" data-command="帶我去無障礙出口">無障礙出口</button>
+            <button type="button" data-command="下一步">下一步</button>
+            <button type="button" data-command="重複提示">重複提示</button>
+          </div>
+        </aside>
+
+        <section class="panel map-panel" aria-label="室內路線節點">
+          <div class="panel-heading map-heading">
+            <div>
+              <p class="kicker">Indoor Route</p>
+              <h2>室內路線節點</h2>
+            </div>
+            <span class="state-chip" id="navState">尚未導航</span>
+          </div>
+
+          <div class="indoor-map" aria-label="AuraMap 室內平面導航圖">
+            <svg class="route-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+              <polyline id="routeBase" class="route-base" points=""></polyline>
+              <polyline id="routeProgress" class="route-progress" points=""></polyline>
+            </svg>
+            <div class="map-zone zone-entry">入口大廳</div>
+            <div class="map-zone zone-corridor">主走廊</div>
+            <div class="map-zone zone-service">服務區</div>
+            <div class="map-zone zone-exit">出口區</div>
+            <div id="mapNodes"></div>
+            <div id="mapObstacles"></div>
+          </div>
+
+          <div class="route-list" id="routeList" aria-label="路線節點清單"></div>
+        </section>
+
+        <aside class="panel ops-panel" aria-label="場域部署管理">
+          <div class="panel-heading">
+            <p class="kicker">Field Ops</p>
+            <h2>場域與事件</h2>
+          </div>
+
+          <section class="ops-section" aria-label="障礙物提醒">
+            <div class="section-title">
+              <h3>障礙物提醒</h3>
+              <button id="clearObstaclesBtn" type="button">清除障礙</button>
+            </div>
+            <label class="field" for="obstacleSelect">
+              <span>加入場域障礙</span>
+              <select id="obstacleSelect">
+                <option value="cart">走廊手推車</option>
+                <option value="wet">地面濕滑</option>
+                <option value="door">門扇開啟</option>
+                <option value="crowd">人流密集</option>
+              </select>
+            </label>
+            <button id="addObstacleBtn" type="button">模擬障礙提醒</button>
+            <div class="obstacle-list" id="obstacleList"></div>
+          </section>
+
+          <section class="ops-section" aria-label="場域信標狀態">
+            <div class="section-title">
+              <h3>場域信標狀態</h3>
+              <button id="pingBeaconsBtn" type="button">全域校正</button>
+            </div>
+            <div class="beacon-grid" id="beaconGrid"></div>
+          </section>
+
+          <section class="ops-section log-section" aria-label="導航事件紀錄">
+            <div class="section-title">
+              <h3>導航事件紀錄</h3>
+              <button id="clearLogBtn" type="button">清空</button>
+            </div>
+            <ol class="event-log" id="eventLog" aria-live="polite"></ol>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <div class="sr-only" id="liveRegion" aria-live="assertive"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
