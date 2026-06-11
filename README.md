@@ -1,5 +1,21 @@
 # AuraMap｜視障者的科技導盲犬 Demo
 
+## 快速看懂
+
+![startup-auramap-navigation 功能截圖](docs/preview.png)
+
+- 線上 Demo：https://atlasforcn.github.io/startup-auramap-navigation/
+- 這個原型在做什麼：把 AuraMap 做成視障室內導航輔助系統，聚焦目的地、節點、障礙與語音/震動提示。
+- 特色定位：特色是 accessibility-first：畫面資訊服務管理者，但流程以視障者導航安全為核心。
+- 操作流程：設定室內目的地 → 依序推進路線節點與信標狀態 → 加入障礙提醒並產生語音/震動提示紀錄
+
+<details>
+<summary>展開完整功能流程截圖</summary>
+
+![startup-auramap-navigation 完整功能流程截圖](docs/flow.png)
+
+</details>
+
 這個 repo 是「AuraMap｜視障者的科技導盲犬」的互動式前端 demo，以視障者在室內場域自主導航為主要情境。Demo 使用原生 HTML、CSS、JavaScript 製作，不需要安裝建置工具。
 
 ## 比賽來源
