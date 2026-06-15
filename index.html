@@ -7,6 +7,40 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- repo-snapshot:start -->
+    <section class="repo-snapshot repo-snapshot--map" aria-label="專案辨識預覽：AuraMap" style="--snap-bg: #06100f; --snap-bg-2: #18302b; --snap-ink: #f7fbf1; --snap-muted: #b7c6be; --snap-accent: #f6c743; --snap-accent-2: #52c7ff;">
+      <div class="snapshot-copy">
+        <p class="snapshot-kicker">Accessible indoor nav</p>
+        <div class="snapshot-name">AuraMap</div>
+        <p class="snapshot-tagline">室內定位、障礙提醒、語音與震動提示，先看到一條清楚可跟隨的導盲路徑。</p>
+        <div class="snapshot-chips" aria-label="核心辨識元素">
+        <span>室內信標</span>
+        <span>障礙提示</span>
+        <span>語音導引</span>
+        </div>
+      </div>
+      <div class="snapshot-scene" aria-hidden="true">
+        <div class="snapshot-device">
+          <div class="snapshot-device-head">
+            <span>Guidance path</span>
+            <strong>入口到服務櫃台</strong>
+          </div>
+          <div class="snapshot-visual snapshot-visual--map">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="snapshot-data-row">
+          <span><b>18m</b>距離</span>
+          <span><b>2</b>障礙</span>
+          <span><b>96</b>清晰度</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- repo-snapshot:end -->
+    <div class="demo-boundary" role="note">
+      <strong>Prototype</strong>
+      <span>靜態互動原型；畫面資料、評分、AI、金流、醫療、法律與安全流程皆為示範，不代表原團隊官方產品或實際服務。</span>
+    </div>
     <a class="skip-link" href="#navigator">跳到導航控制</a>
 
     <main class="shell">
@@ -17,11 +51,17 @@
           <p class="lede">室內定位、AI 視覺辨識、語音與震動回饋，協助視障者在複雜室內場域中取得清楚方向與即時障礙提醒。</p>
         </section>
 
-        <section class="source-panel" aria-label="官方來源">
-          <span>國立中央大學｜AuraMap｜資通訊領域 ICT</span>
-          <a href="https://ssp.moe.gov.tw/cases/1486" target="_blank" rel="noreferrer">官方案例頁</a>
-          <p class="demo-disclaimer">本頁為依公開得獎資訊自行製作的概念原型，不是原團隊官方 demo 或產品。</p>
-        </section>
+        <details class="source-panel source-disclosure" aria-label="官方來源">
+          <summary>
+            <span>公開來源</span>
+            <strong>國立中央大學｜AuraMap</strong>
+          </summary>
+          <div class="source-body">
+            <span>國立中央大學｜AuraMap｜資通訊領域 ICT</span>
+            <a href="https://ssp.moe.gov.tw/cases/1486" target="_blank" rel="noreferrer">官方案例頁</a>
+            <p class="demo-disclaimer">本頁為依公開得獎資訊自行製作的概念原型，不是原團隊官方 demo 或產品。</p>
+          </div>
+        </details>
       </header>
 
       <section class="status-rail" aria-label="目前導航狀態">
